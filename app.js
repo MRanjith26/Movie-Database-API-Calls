@@ -140,11 +140,8 @@ app.get("/directors/:directorId/movies/", async (request, response) => {
       director_id = '${directorId}';`;
 
   const moviesArray = await db.all(getDirectorMoviesQuery);
-  const getAllMovieNames = (eachMovie) => {
-    return {
-      movieName: eachMovie.movie_name,
-    };
-  };
-  response.send(moviesArray.map((eachMovie) => getAllMovieNames(eachMovie)));
+  response.send(
+    moviesArray.map((eachMovie) => ({ movieName: eachMovie.movie_name }))
+  );
 });
 module.exports = app;
